@@ -37,12 +37,14 @@ pipeline {
         }
       }
     }
-    stage('Deploy') {
-        steps {
-          container('firebase') {
-            sh("firebase deploy --token $FIREBASE")
+    if(env.BRANCH_NAME == 'master') {
+      stage('Deploy') {
+          steps {
+            container('firebase') {
+              sh("firebase deploy --token $FIREBASE")
+            }
           }
-        }
-    }
+      }
+    } 
   }
 }
