@@ -14,5 +14,8 @@ main.use(cors({ origin: true }));
 
 // Example route part 2
 // main.use('helloWorld', helloWorldRouter);
+main.get('/hello', (req, res) => {
+  res.json({"message": "hello world"});
+});
 
 exports.api = functions.https.onRequest(main);
