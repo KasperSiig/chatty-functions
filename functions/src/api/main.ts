@@ -1,7 +1,7 @@
-const functions = require('firebase-functions');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import * as functions from 'firebase-functions';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
 
 const main = express();
 
@@ -14,8 +14,5 @@ main.use(cors({ origin: true }));
 
 // Example route part 2
 // main.use('helloWorld', helloWorldRouter);
-main.get('/hello', (req, res) => {
-  res.json({"message": "hello world"});
-});
 
 exports.api = functions.https.onRequest(main);
