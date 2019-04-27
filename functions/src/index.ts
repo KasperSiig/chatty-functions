@@ -1,5 +1,5 @@
-const admin = require('firebase-admin');
-const api = require('./api/main');
+import * as admin from 'firebase-admin';
+import * as api from './api/main';
 
 admin.initializeApp();
 
