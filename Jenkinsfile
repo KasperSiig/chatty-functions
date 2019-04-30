@@ -34,6 +34,7 @@ pipeline {
         container('node') {
           sh("yarn --cwd functions install")
           sh("yarn --cwd functions build ")
+          sh("yarn --cwd functions lint")
         }
       }
     }
