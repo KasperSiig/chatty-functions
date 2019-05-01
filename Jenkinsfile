@@ -39,9 +39,9 @@ pipeline {
       }
     }
     stage('Deploy') {
-//      when {
-//        branch 'master'
-//      }
+      when {
+        branch 'master'
+      }
       steps {
         container('firebase') {
           sh("firebase deploy --token $FIREBASE")
