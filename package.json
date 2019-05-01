@@ -1,0 +1,6 @@
+{
+  "name": "functions",
+  "scripts": {
+    "serve": "yarn --cwd functions build && firebase use chatty-dev-e0191 && firebase serve --only functions"
+  }
+}
