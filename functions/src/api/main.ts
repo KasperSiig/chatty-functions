@@ -5,17 +5,14 @@ import * as cors from 'cors';
 
 const main = express();
 
-// Example route part 1
-// const helloWorldRouter = require('./routes/helloWorldRouter');
-
 const messageRouter = require('./routes/messageRouter');
+const filesRouter = require('./routes/filesRouter');
 
 main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
 main.use(cors({ origin: true }));
 
-// Example route part 2
-// main.use('helloWorld', helloWorldRouter);
 main.use('/message', messageRouter);
+main.use('/files', filesRouter);
 
 exports.api = functions.https.onRequest(main);
