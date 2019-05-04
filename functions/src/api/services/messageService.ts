@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin';
-
-const { isMessage } = require('../../helpers/message');
+import { isMessage } from "../../helpers/messages";
 
 /**
  * Adds message to firestore
