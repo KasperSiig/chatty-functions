@@ -1,24 +1,10 @@
 import * as admin from 'firebase-admin';
-import { isMessage } from "../../helpers/messages";
 
 /**
- * Adds message to firestore
- * @param req Incoming Request
- * @param res Outgoing Response
+ * Adds message to firestore colletion 'messages'
+ * @param message Message to be sent
  */
-module.exports.upload = (req, res) => {
-  const message = req.body;
+export function sendMessage(message) {
+  return admin.firestore().collection('messages').add(message);
+}
 
-  if (!isMessage(message)) {
-    res.status(500).send("Message could not be sent");
-    return;
-  }
-  
-  admin.firestore().collection('messages').add(message)
-    .then(() => {
-      res.send("Message was sucessfully sent");
-    })
-    .catch(() => {
-      res.status(500).send("Message could not be sent");
-    });
-};

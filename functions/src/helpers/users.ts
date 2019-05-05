@@ -3,6 +3,6 @@
  * @param user User to be checked
  */
 export function isUser(user) {
-  return (user.username !== undefined &&
+  return (user.userName !== undefined &&
           user.avatarUrl !== undefined);
 }
