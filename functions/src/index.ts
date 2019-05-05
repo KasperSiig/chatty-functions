@@ -1,10 +1,8 @@
 import * as admin from 'firebase-admin';
 import * as api from './api/main';
 
-const serviceAccount = require('../serviceAccountKey.json');
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://chatty-dev-e0191.firebaseio.com"
+  serviceAccountId: 'firebase-adminsdk-i39i8@chatty-dev-e0191.iam.gserviceaccount.com'
 });
 
 module.exports = {
