@@ -27,7 +27,9 @@ app.post('', async (req, res) => {
     isFile: true
   };
 
-  Promise.all([uploadFile(file), uploadMetaData(file), sendMessage(message)])
+  await uploadFile(file);
+
+  Promise.all([uploadMetaData(file), sendMessage(message)])
     .then(() => {
       res.send('File Succesfully Uploaded');
     })
