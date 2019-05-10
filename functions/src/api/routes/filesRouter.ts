@@ -5,6 +5,8 @@ import { sendMessage } from "../services/messageService";
 
 const app = express();
 
+const config = JSON.parse(process.env.FIREBASE_CONFIG as string);
+
 // POST
 /**
  * Uploads file and sends it as a message
@@ -13,9 +15,9 @@ app.post('', async (req, res) => {
   // Gives file a uuid(Universal Unique ID) and a download url
   const file = req.body;
   file.id = await generateUUID();
-  file.url = "https://firebasestorage.googleapis.com/v0/b/chatty-dev-e0191.appspot.com/o/uploads%2F" + file.id + "?alt=media&token=" + file.id;
+  file.url = "https://firebasestorage.googleapis.com/v0/b/" + config.storageBucket + "/o/uploads%2F" + file.id + "?alt=media&token=" + file.id;
 
-  if (!isFile(file)) {
+  if (!isFile(file) || !file.type.startsWith('image/')) {
     res.status(500).send('File Could Not Be Uploaded');
     return;
   }

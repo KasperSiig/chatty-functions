@@ -1,6 +1,8 @@
 import * as admin from 'firebase-admin';
 import * as UUID from 'uuid-v4';
 
+const config = JSON.parse(process.env.FIREBASE_CONFIG as string);
+
 /**
  * Uploads MeteData to Firestore
  * @param file File containing MetaData
@@ -21,7 +23,7 @@ export function uploadMetaData(file) {
 export function uploadFile(file) {
   const buffer = Buffer.from(file.base64File, 'base64');
 
-  return admin.storage().bucket('chatty-dev-e0191.appspot.com').file('uploads/' + file.id)
+  return admin.storage().bucket(config.storageBucket).file('uploads/' + file.id)
     .save(buffer, {
       gzip: true,
       metadata: {
@@ -38,9 +40,9 @@ export function uploadFile(file) {
  */
 export async function generateUUID() {
   const uuid = UUID();
-  let exists = true;
+  const exists = true;
   while (exists) {
-    let docRef = await admin.firestore().doc('files/' + uuid).get();
+    const docRef = await admin.firestore().doc('files/' + uuid).get();
     if (!docRef.exists) return uuid;
   }
 }

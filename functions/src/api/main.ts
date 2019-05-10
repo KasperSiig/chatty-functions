@@ -7,6 +7,7 @@ const main = express();
 
 const messageRouter = require('./routes/messageRouter');
 const filesRouter = require('./routes/filesRouter');
+const usersRouter = require('./routes/usersRouter');
 
 main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
@@ -14,5 +15,6 @@ main.use(cors({ origin: true }));
 
 main.use('/message', messageRouter);
 main.use('/files', filesRouter);
+main.use('/users', usersRouter);
 
 exports.api = functions.https.onRequest(main);
