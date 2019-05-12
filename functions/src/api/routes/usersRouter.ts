@@ -8,6 +8,7 @@ app.post('/create', async (req, res) => {
   const createdUser = await createUser(user);
   const token = await createToken(createdUser);
   res.send(token);
+  // firebase.auth().createUserWithEmailAndPassword('test@tests.com', 'password').then();
 });
 
 export = app;

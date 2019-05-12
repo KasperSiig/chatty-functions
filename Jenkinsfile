@@ -1,6 +1,7 @@
 pipeline {
   environment {
     FIREBASE = credentials("firebase-deploy-token")
+    SERVICEACCOUNT = credentials("chatty_firebase_service_account")
   }
   agent {
     kubernetes {
@@ -32,6 +33,8 @@ pipeline {
     stage('Build') {
       steps {
         container('node') {
+          sh("echo $SERVICEACCOUNT > functions/serviceaccount.json")
+          sh("cat functions/serviceaccount.json")
           sh("yarn --cwd functions install")
           sh("yarn --cwd functions build ")
           sh("yarn --cwd functions lint")
