@@ -11,17 +11,17 @@ app.post('', async (req, res) => {
   const message = req.body;
 
   if (!isMessage(message)) {
-    res.status(500).send("Message could not be sent");
+    res.status(500).send({message: 'Message could not be sent'});
     return;
   }
 
   sendMessage(message)
     .then(() => {
-      res.send('Message was sucessfully sent');
+      res.send({message: 'Message was sucessfully sent'});
     })
     .catch((e) => {
       console.log(e);
-      res.status(500).send('Message could not be sent');
+      res.status(500).send({message: 'Message could not be sent'});
     })
 });
 

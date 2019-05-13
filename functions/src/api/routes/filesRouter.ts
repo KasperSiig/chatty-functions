@@ -5,6 +5,8 @@ import { sendMessage } from "../services/messageService";
 
 const app = express();
 
+const config = JSON.parse(process.env.FIREBASE_CONFIG as string);
+
 // POST
 /**
  * Uploads file and sends it as a message
@@ -13,10 +15,10 @@ app.post('', async (req, res) => {
   // Gives file a uuid(Universal Unique ID) and a download url
   const file = req.body;
   file.id = await generateUUID();
-  file.url = "https://firebasestorage.googleapis.com/v0/b/chatty-dev-e0191.appspot.com/o/uploads%2F" + file.id + "?alt=media&token=" + file.id;
+  file.url = "https://firebasestorage.googleapis.com/v0/b/" + config.storageBucket + "/o/uploads%2F" + file.id + "?alt=media&token=" + file.id;
 
-  if (!isFile(file)) {
-    res.status(500).send('File Could Not Be Uploaded');
+  if (!isFile(file) || !file.type.startsWith('image/')) {
+    res.status(500).send({message: 'File Could Not Be Uploaded'});
     return;
   }
 
@@ -31,11 +33,11 @@ app.post('', async (req, res) => {
 
   Promise.all([uploadMetaData(file), sendMessage(message)])
     .then(() => {
-      res.send('File Succesfully Uploaded');
+      res.send({message: 'File Succesfully Uploaded'});
     })
     .catch((e) => {
       console.log(e);
-      res.status(500).send('File Could Not Be Uploaded');
+      res.status(500).send({message: 'File Could Not Be Uploaded'});
     });
 });
 
