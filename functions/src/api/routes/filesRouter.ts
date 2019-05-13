@@ -18,7 +18,7 @@ app.post('', async (req, res) => {
   file.url = "https://firebasestorage.googleapis.com/v0/b/" + config.storageBucket + "/o/uploads%2F" + file.id + "?alt=media&token=" + file.id;
 
   if (!isFile(file) || !file.type.startsWith('image/')) {
-    res.status(500).send('File Could Not Be Uploaded');
+    res.status(500).send({message: 'File Could Not Be Uploaded'});
     return;
   }
 
@@ -33,11 +33,11 @@ app.post('', async (req, res) => {
 
   Promise.all([uploadMetaData(file), sendMessage(message)])
     .then(() => {
-      res.send('File Succesfully Uploaded');
+      res.send({message: 'File Succesfully Uploaded'});
     })
     .catch((e) => {
       console.log(e);
-      res.status(500).send('File Could Not Be Uploaded');
+      res.status(500).send({message: 'File Could Not Be Uploaded'});
     });
 });
 

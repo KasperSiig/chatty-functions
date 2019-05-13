@@ -1,7 +1,10 @@
 import * as admin from "firebase-admin";
 
+/**
+ * Creates users with different claims
+ * @param user User to be created
+ */
 export function createUser(user) {
-  console.log('creating user');
   return admin.auth().createUser({
     email: user.email,
     emailVerified: false,
@@ -10,12 +13,4 @@ export function createUser(user) {
     photoURL: user.avatarURL,
     disabled: false
   });
-}
-
-export function createToken(user) {
-  const claims = {
-    userName: user.userName,
-    avatarURL: user.avatarURL
-  };
-  return admin.auth().createCustomToken(user.uid, claims);
 }

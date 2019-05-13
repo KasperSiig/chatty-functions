@@ -1,14 +1,21 @@
 import * as express from 'express';
-import { createToken, createUser } from "../services/usersService";
+import { createUser } from "../services/usersService";
 
 const app = express();
 
+// POST
+/**
+ * Creates user
+ */
 app.post('/create', async (req, res) => {
   const user = req.body;
-  const createdUser = await createUser(user);
-  const token = await createToken(createdUser);
-  res.send(token);
-  // firebase.auth().createUserWithEmailAndPassword('test@tests.com', 'password').then();
+  try {
+    await createUser(user);
+  } catch (e) {
+    res.status(500).send(e);
+    return;
+  }
+  res.send({message: 'User Successfully Created'});
 });
 
 export = app;
