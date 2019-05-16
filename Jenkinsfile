@@ -33,7 +33,6 @@ pipeline {
     stage('Build') {
       steps {
         container('node') {
-          sh("echo $SERVICEACCOUNT > functions/serviceaccount.json")
           sh("yarn --cwd functions install")
           sh("yarn --cwd functions build ")
           sh("yarn --cwd functions lint")
