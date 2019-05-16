@@ -41,12 +41,15 @@ pipeline {
       }
     }
     stage('Deploy') {
-      when {
-        branch 'master'
-      }
+      //when {
+        //branch 'master'
+      //}
       steps {
-        container('firebase') {
-          sh("firebase deploy --token $FIREBASE")
+        withCredentials([file(credentialsID: 'chatty_firebase_service_account', variable: service_account)]) {
+          container('firebase') {
+            sh("cp \$service_account/ functions/serviceaccount.json")
+            sh("firebase deploy --token $FIREBASE")
+          } 
         }
       }
     }
