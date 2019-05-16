@@ -8,7 +8,7 @@ const main = express();
 const messageRouter = require('./routes/messageRouter');
 const filesRouter = require('./routes/filesRouter');
 const usersRouter = require('./routes/usersRouter');
-const allowedMethods = ['POST'];
+const allowedMethods = ['POST', 'OPTIONS'];
 
 main.use((req, res, next) => {
   if (!allowedMethods.includes(req.method))
