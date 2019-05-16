@@ -33,7 +33,6 @@ pipeline {
     stage('Build') {
       steps {
         container('node') {
-          sh("echo $SERVICEACCOUNT > functions/serviceaccount.json")
           sh("yarn --cwd functions install")
           sh("yarn --cwd functions build ")
           sh("yarn --cwd functions lint")
@@ -46,8 +45,9 @@ pipeline {
       }
       steps {
         container('firebase') {
+          sh("cp $SERVICEACCOUNT functions/serviceaccount.json")
           sh("firebase deploy --token $FIREBASE")
-        }
+        } 
       }
     }
   }
