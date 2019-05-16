@@ -40,9 +40,9 @@ pipeline {
       }
     }
     stage('Deploy') {
-      //when {
-        //branch 'master'
-      //}
+      when {
+        branch 'master'
+      }
       steps {
         container('firebase') {
           sh("cp $SERVICEACCOUNT functions/serviceaccount.json")
