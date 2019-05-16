@@ -12,7 +12,8 @@ app.post('/create', async (req, res) => {
   try {
     await createUser(user);
   } catch (e) {
-    res.status(500).send(e.toString());
+    console.log(e.toString());
+    res.status(500).send('User could not be created');
     return;
   }
   res.send({message: 'User Successfully Created'});

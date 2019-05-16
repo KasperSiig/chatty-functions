@@ -17,10 +17,11 @@ app.post('', async (req, res) => {
 
   sendMessage(message)
     .then(() => {
+      console.log('Message was sent by ' + message.sender.userName);
       res.send({message: 'Message was sucessfully sent'});
     })
     .catch((e) => {
-      console.log(e);
+      console.log(e.toString());
       res.status(500).send({message: 'Message could not be sent'});
     })
 });
